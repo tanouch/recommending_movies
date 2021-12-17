@@ -104,5 +104,5 @@ def get_movie_recommendations(
     for movie, score in zip([list(movie_vectors.keys())[elem] for elem in top_scores], list(1-all_scores[top_scores])):
         print(movie, score)
         
-if __name__ == "__main__":
+def main():
     fire.Fire(get_movie_recommendations)
