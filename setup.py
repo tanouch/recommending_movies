@@ -1,12 +1,9 @@
 from setuptools import setup, find_packages
 
 if __name__ == "__main__":
-    
     setup(
-        name = 'recoMovies_SightSound',
-        #package_dir={"": "movie_recommendations"},
-        #packages=find_packages(where="movie_recommendations"),
-        scripts=['movie_recommendations/movie_recommendations.py'],
+        name = 'recoMov_SightSound',
+        packages=find_packages(),
         include_package_data = True,
         version = '1',
         license='MIT',
@@ -14,7 +11,7 @@ if __name__ == "__main__":
         author = 'Ugo Tanielian',
         author_email = 'firstname.lastname@outluuk.fr',  
         url = 'https://github.com/tanouch/recommending_movies',
-        entry_points={"console_scripts": ["recoMovies_SightSound = movie_recommendations:get_movie_recommendations"]},
+        entry_points={"console_scripts": ["recoMov_SightSound = recommending_movies.movie_recommendations:get_movie_recommendations"]},
         keywords = ['NLP', 'movies'],
         install_requires=[
             "numpy",
