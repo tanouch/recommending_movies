@@ -3,7 +3,7 @@ The list can be found here: https://www.imdb.com/list/ls081703490/.
 
 
 ### Set up
-pip install --upgrade pip
+pip install --upgrade pip<\br>
 pip install -e .
 
 ### How to use it
