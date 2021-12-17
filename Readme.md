@@ -2,9 +2,7 @@
 The list can be found here: https://www.imdb.com/list/ls081703490/.
 
 
-### Set up
-pip install --upgrade pip <br />
-pip install -e .
-
 ### How to use it
-python movie_recommendations/movie_recommendations --movie_name NAME --movie_year YEAR
+pip install recoMov_SightSound
+recoMov_SightSound --movie_name NAME --movie_year YEAR
+
