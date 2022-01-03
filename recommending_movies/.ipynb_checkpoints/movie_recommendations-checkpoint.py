@@ -83,9 +83,9 @@ def get_movie_recommendations(
     movie_name="The Godfather Part III", 
     movie_year=1990
     ):
-    json_string = resource_stream(__name__, '../movie_summaries.json').read().decode()
+    json_string = resource_stream(__name__, 'data/movie_summaries.json').read().decode()
     movie_summaries = json.loads(json_string)
-    json_string = resource_stream(__name__, '../movie_vectors.json').read().decode()
+    json_string = resource_stream(__name__, 'data/movie_vectors.json').read().decode()
     movie_vectors = json.loads(json_string)
     
     tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
