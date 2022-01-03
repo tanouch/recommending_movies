@@ -5,7 +5,7 @@ if __name__ == "__main__":
         name = 'recommending1000Movies',
         packages=find_packages(),
         include_package_data = True,
-        version = '1',
+        version = '2',
         license='MIT',
         description = 'Recommending movies based on text synopsis using DistilBERT',
         author = 'Ugo Tanielian',
@@ -21,6 +21,7 @@ if __name__ == "__main__":
             "fire",
             "scipy"
         ],
+        data_files=[('.', ['sight_sound_rank.tsv', 'movie_summaries.json', 'movie_vectors.json'])],
         classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

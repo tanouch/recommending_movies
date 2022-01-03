@@ -5,6 +5,7 @@ import torch
 import json
 import fire
 from scipy.spatial import distance
+from pkg_resources import resource_stream
 import transformers
 transformers.logging.set_verbosity_error()
 
@@ -82,13 +83,11 @@ def get_movie_recommendations(
     movie_name="The Godfather Part III", 
     movie_year=1990
     ):
+    json_string = resource_stream(__name__, '../movie_summaries.json').read().decode()
+    movie_summaries = json.loads(json_string)
+    json_string = resource_stream(__name__, '../movie_vectors.json').read().decode()
+    movie_vectors = json.loads(json_string)
     
-    with open('movie_summaries.json') as json_file:
-        movie_summaries = json.load(json_file)
-
-    with open('movie_vectors.json') as json_file:
-        movie_vectors = json.load(json_file)
-
     tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
     model = DistilBertModel.from_pretrained('distilbert-base-uncased')
     new_text = get_text(movie_name, movie_year)
@@ -105,4 +104,7 @@ def get_movie_recommendations(
         print(movie, score)
         
 def main():
+    fire.Fire(get_movie_recommendations)
+    
+if __name__ == "__main__":
     fire.Fire(get_movie_recommendations)
