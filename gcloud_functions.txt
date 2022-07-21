@@ -1,0 +1,7 @@
+gcloud functions deploy recommending_movies --trigger-http --runtime python37 --memory 2048MB --project website-cine --region "europe-west1" --allow-unauthenticated --timeout 180s
+curl -X POST "https://europe-west1-website-cine.cloudfunctions.net/recommending_movies" -H "Content-Type:application/json" --data "{\"movie_name\":\"The Big Lebowski\", \"movie_year\":\"1998\"}"
+gcloud functions call recommending_movies --data "{\"movie_name\":\"The Big Lebowski\", \"movie_year\":\"1998\"}" --region "europe-west1"
+https://europe-west1-website-cine.cloudfunctions.net/recommending_movies?"movie_name"="The Big Lebowski"&"movie_year"=1998
+gcloud functions logs read recommending_movies --execution-id umwhedgcckg1 --region "europe-west1"
+
+https://europe-west1-website-cine.cloudfunctions.net/recommending_movies?movie_name=The Big Lebowski&movie_year=1998
