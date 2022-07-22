@@ -1,6 +1,0 @@
-numpy
-wikipedia
-transformers
-torch
-fire
-scipy
