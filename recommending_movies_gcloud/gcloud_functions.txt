@@ -3,5 +3,5 @@ curl -X POST "https://europe-west1-website-cine.cloudfunctions.net/recommending_
 gcloud functions call recommending_movies --data "{\"movie_name\":\"The Big Lebowski\", \"movie_year\":\"1998\"}" --region "europe-west1"
 https://europe-west1-website-cine.cloudfunctions.net/recommending_movies?movie_name=The Big Lebowski&movie_year=1998
 gcloud functions logs read recommending_movies --execution-id umwhedgcckg1 --region "europe-west1"
-
+https://europe-west1-website-cine.cloudfunctions.net/recommending_movies?movie_name=The Big Lebowski&movie_year=1998
 https://europe-west1-website-cine.cloudfunctions.net/recommending_movies?movie_name=The Big Lebowski&movie_year=1998
