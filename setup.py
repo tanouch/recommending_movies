@@ -9,7 +9,7 @@ if __name__ == "__main__":
         license='MIT',
         description = 'Recommending movies based on text synopsis using DistilBERT',
         author = 'Ugo Tanielian',
-        author_email = 'firstname.lastname@outluuk.fr',  
+        author_email = 'firstname.lastname@outluuk.fr',
         url = 'https://github.com/tanouch/recommending_movies',
         entry_points={"console_scripts": ["recommendation1000Movies = recommending_movies.movie_recommendations:main"]},
         keywords = ['NLP', 'movies'],
@@ -17,7 +17,7 @@ if __name__ == "__main__":
             "numpy",
             "wikipedia",
             "transformers",
-            "torch", 
+            "torch",
             "fire",
             "scipy"
         ],
