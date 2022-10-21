@@ -1,7 +1,7 @@
 import numpy as np
 import wikipedia
+import pandas as pd
 from transformers import DistilBertTokenizer, DistilBertModel #BertTokenizer, BertModel
-import torch
 import json
 import fire
 from scipy.spatial import distance
@@ -49,16 +49,16 @@ def save_movie_summaries():
         movie, year = movies[i], years[i]
         text = get_text(movie, year)
         if text != "":
-            movie_summaries[movie] = text 
-    
+            movie_summaries[movie] = text
+
     print("number of movies missing = ", no_summaries)
     json = json.dumps(movie_summaries)
     f = open("movie_summaries.json","w")
     f.write(json)
     f.close()
-    
+
 def save_movie_vectors(tokenizer, model):
-    
+
     def get_vector(movie, model):
         model.eval()
         text = movie_summaries[movie]
@@ -68,7 +68,7 @@ def save_movie_vectors(tokenizer, model):
         return last_hidden_states
 
     movie_vectors = dict()
-    for i, movie in enumerate(movie_summaries.keys()):  
+    for i, movie in enumerate(movie_summaries.keys()):
         last_hidden_states = get_vector(movie, model)
         movie_vectors[movie] = last_hidden_states.tolist()
         gc.collect()
@@ -77,17 +77,17 @@ def save_movie_vectors(tokenizer, model):
     f = open("movie_vectors.json","w")
     f.write(json)
     f.close()
-    
+
 
 def get_movie_recommendations(
-    movie_name="The Godfather Part III", 
+    movie_name="The Godfather Part III",
     movie_year=1990
     ):
     json_string = resource_stream(__name__, 'data/movie_summaries.json').read().decode()
     movie_summaries = json.loads(json_string)
     json_string = resource_stream(__name__, 'data/movie_vectors.json').read().decode()
     movie_vectors = json.loads(json_string)
-    
+
     tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
     model = DistilBertModel.from_pretrained('distilbert-base-uncased')
     new_text = get_text(movie_name, movie_year)
@@ -102,9 +102,9 @@ def get_movie_recommendations(
     print("Movies, Scores (from 0 to 1)")
     for movie, score in zip([list(movie_vectors.keys())[elem] for elem in top_scores], list(1-all_scores[top_scores])):
         print(movie, score)
-        
+
 def main():
     fire.Fire(get_movie_recommendations)
-    
+
 if __name__ == "__main__":
     fire.Fire(get_movie_recommendations)

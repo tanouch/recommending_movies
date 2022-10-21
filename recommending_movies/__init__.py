@@ -1,2 +1,2 @@
 # __init__.py
-from recommending_movies.movie_recommendations import get_movie_recommendations
+from recommending_movies.create_embeddings import get_movie_recommendations

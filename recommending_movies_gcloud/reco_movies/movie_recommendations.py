@@ -1,7 +1,6 @@
 import numpy as np
 import wikipedia
-from transformers import DistilBertTokenizer, DistilBertModel #BertTokenizer, BertModel
-import torch
+from transformers import DistilBertTokenizer, DistilBertModel
 import json
 import fire
 from scipy.spatial import distance
@@ -27,57 +26,6 @@ def get_text(movie, year):
         print("Could not find the summary, are you sure this is the right title on Wikipedia ?")
     return text
 
-def save_movie_summaries():
-    df = pd.read_csv('sight_sound_rank.tsv', sep='\t')
-    movies = df['movie'].to_numpy()
-    years = df['year'].to_numpy()
-    movies[9] = "Breathless (1960 film)"
-    movies[12] = "The Mirror (1913 film)"
-    movies[36] = "Psycho (1960 film)"
-    movies[43] = "Fanny and Alexander"
-    movies[44] = "The General (1926 film)"
-    movies[46] = "Modern Times (film)"
-    movies[47] = "Gertrud (film)"
-    movies[0] = "Vertigo (film)"
-    movies[50] = "Jeanne Dielman, 23 quai du Commerce, 1080 Bruxelles"
-    movies[54] = "The Night of the Hunter (film)"
-    movies[61] = "Histoire(s) du cinéma"
-    movies[63] = "Blue Velvet (film)"
-
-    movie_summaries = dict()
-    for i in range(len(movies)):
-        movie, year = movies[i], years[i]
-        text = get_text(movie, year)
-        if text != "":
-            movie_summaries[movie] = text
-
-    print("number of movies missing = ", no_summaries)
-    json = json.dumps(movie_summaries)
-    f = open("movie_summaries.json","w")
-    f.write(json)
-    f.close()
-
-def save_movie_vectors(tokenizer, model):
-
-    def get_vector(movie, model):
-        model.eval()
-        text = movie_summaries[movie]
-        inputs = tokenizer(text, return_tensors="pt", max_length=500, truncation=True)
-        inputs.requires_grad=False
-        last_hidden_states = model(**inputs).last_hidden_state[0][-1].detach().numpy()
-        return last_hidden_states
-
-    movie_vectors = dict()
-    for i, movie in enumerate(movie_summaries.keys()):
-        last_hidden_states = get_vector(movie, model)
-        movie_vectors[movie] = last_hidden_states.tolist()
-        gc.collect()
-
-    json = json.dumps(movie_vectors)
-    f = open("movie_vectors.json","w")
-    f.write(json)
-    f.close()
-
 
 def get_movie_recommendations(
     movie_name="The Godfather Part III",
@@ -99,9 +47,9 @@ def get_movie_recommendations(
 
     num_scores = 10
     top_scores = np.argsort(all_scores)[:num_scores]
-    movie_reco_list = list(["Your movie recommendations are: \n"])
+    movie_reco_list = list()
     for movie, score in zip([list(movie_vectors.keys())[elem] for elem in top_scores], list(1-all_scores[top_scores])):
-        movie_reco_list.append(movie + ": " + str(score) + "\n")
+        movie_reco_list.append(movie + ": " + str(np.round(score, 3)) + ",")
     movie_reco_string = ''.join(movie_reco_list)
     return movie_reco_string
 
