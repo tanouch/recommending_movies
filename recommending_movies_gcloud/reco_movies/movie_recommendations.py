@@ -49,7 +49,7 @@ def get_movie_recommendations(
     top_scores = np.argsort(all_scores)[:num_scores]
     movie_reco_list = list(["Your movie recommendations are: \n"])
     for movie, score in zip([list(movie_vectors.keys())[elem] for elem in top_scores], list(1-all_scores[top_scores])):
-        movie_reco_list.append(movie + ": " + str(np.round(score, 3)) + + "\n")
+        movie_reco_list.append(movie + ": " + str(np.round(score, 3)) + "\n")
     movie_reco_string = ''.join(movie_reco_list)
     return movie_reco_string
 
