@@ -13,10 +13,11 @@ def recommending_movies(request):
         # Allows GET requests from any origin with the Content-Type
         # header and caches preflight response for an 3600s
         headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Origin': 'https://ugotanielian.com',
+            'Access-Control-Allow-Methods': 'GET, POST',
             'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Max-Age': '3600'
+            'Access-Control-Max-Age': '3600',
+            'Access-Control-Allow-Credentials': true
         }
         return ('', 204, headers)
     # Set CORS headers for the main request
